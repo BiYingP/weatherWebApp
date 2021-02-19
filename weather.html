@@ -1,0 +1,77 @@
+﻿<!DOCTYPE html>
+<html>
+    <head>
+        <title>Weather Web App</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+        <script src="http://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.5/jquery.mobile.min.js"></script>    
+        <link type="text/css" rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.5/jquery.mobile.min.css"/>
+        
+        <style>
+            td {
+                width: 200px;
+                height: 15px;
+                text-align: center;
+            }
+        </style>
+        
+        <script>
+            // request weather data from openweathermap api
+            function requestWeather(){
+                
+                //var key = $("#key");
+                var key = "50158dd91e4eaf7ef4a3c1f87f44e510";
+                var zip = $("#zipcode");
+                var URL = "https://api.openweathermap.org/data/2.5/forecast?zip=" +zip.val() + "&appid=" + key +"&units=imperial";
+                
+                // request ajax
+                $.ajax({
+                   type: "GET",
+                   
+                    url: URL,
+                    dataType: "jsonp",
+                    success: function(msg){
+                        var json = msg;
+                       
+                        for( var i = 0; i < 40; i++){
+                            var date = json.list[i].dt_txt;
+                            var weather = json.list[i].weather[0].description;    
+                            var temp = json.list[i].main.temp;
+                            var icon ="<img src='http://openweathermap.org/img/w/"+json.list[i].weather[0].icon+".png'>";
+                            //html string
+                            var html = "<tr><td>" + date + "</td><td>" + weather + "</td><td>" + icon + "</td><td>" + temp + " F</td></tr>";
+                            // write string to html
+                            $("#tb").append(html);                     
+                            } // end for
+                    }, // end function
+                    
+                    error: function(jgXHR, textStatus, errorThrown){
+                        alert("Error: Bad Input "+ textStatus+ " "+ errorThrown);
+                    } 
+                }); // end ajax
+            } // end function
+        </script>
+    </head>
+    <body>
+        <div data-role="header" data-position="fixed">
+        <h1>Weather Web App</h1>
+        </div>
+        
+        <div data-role="controlgroup" data-type="vertical">
+        <!-- <input type="text" id= "key" placeholder="Enter your key here"/> -->
+        <input type="text" id= "zipcode" placeholder="Enter zip code here"/>
+        
+        <input type="button" onclick="requestWeather()" value="Get Weather!"/>
+        </div>
+        <div id= "tb" align= "center">
+            <table data-role=“table” class=“ui-responsive”></table>
+        </div>
+        
+        <div data-role="footer" data-position="fixed">
+        <h1>CS275</h1>
+        </div>
+        
+    </body>
+   
+</html>
