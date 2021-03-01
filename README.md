@@ -2,4 +2,4 @@
 
 Screenshot
 
-![alt text](https://github.com/BiYingP/weatherWebApp/ScreenShot.png)
+![plot](./WeatherWebApp/weatherWebApp/ScreenShot.png)
