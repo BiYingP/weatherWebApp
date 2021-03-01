@@ -2,4 +2,4 @@
 
 Screenshot
 
-![plot](./WeatherWebApp/weatherWebApp/ScreenShot.png)
+![alt text](./weatherWebApp/ScreenShot.png)
